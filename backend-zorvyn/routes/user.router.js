@@ -1,0 +1,16 @@
+import express from "express";
+import { register, login, logout } from "../controllers/auth.controller.js";
+import {authMiddleware, validateLogin, validateRegister} from "../middlewares/authMiddleware.js";
+
+
+const router = express.Router();
+
+router.post("/register", validateRegister, register)
+
+router.post("/login", validateLogin, login)
+
+router.get("/logout", logout)
+
+
+
+export default router;

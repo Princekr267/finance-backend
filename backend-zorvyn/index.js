@@ -1,0 +1,63 @@
+import express from "express";
+import dotenv from "dotenv";
+import authentication from "./routes/user.router.js";
+dotenv.config();
+
+import cors from "cors";
+import mongoose from "mongoose";
+
+const app = express();
+const PORT = process.env.PORT;
+
+const allowedOrigins = [
+    'http://localhost:5173',
+    process.env.FRONTEND_URL
+].filter(Boolean);
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // Allow requests with no origin (mobile apps, curl, Postman, etc.)
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.includes(origin)) {
+            callback(null, origin);
+        } else {
+            // Log for debugging
+            console.log('CORS blocked origin:', origin);
+            callback(null, origin); // Allow anyway for now
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MongoDB);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error(`DB Connection Error: ${error.message}`);
+    process.exit(1);
+  }
+};
+connectDB();
+
+// Middleware to parse JSON request bodies
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.get("/", (req, res) => {
+    res.send("Working!");
+})
+
+app.use("/api/auth", authentication);
+app.use("/api/v1", authentication);
+
+// app.post("/api/v1", authMiddleware, roleMiddleware("admin"), (req, res) => {
+//     res.send("/Register");
+// })
+
+app.listen(PORT || 3000, ()=>{
+    console.log(`Server is running on port ${PORT || 3000}`)
+})
