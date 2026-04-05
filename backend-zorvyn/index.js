@@ -1,10 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
-import authentication from "./routes/user.router.js";
+import authentication from "./routes/auth.router.js";
 dotenv.config();
 
 import cors from "cors";
 import mongoose from "mongoose";
+
+import recordsRouter from "./routes/records.router.js";
+import dashboardRouter from "./routes/dashboard.router.js";
+import usersRouter from "./routes/users.router.js";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -52,7 +56,9 @@ app.get("/", (req, res) => {
 })
 
 app.use("/api/auth", authentication);
-app.use("/api/v1", authentication);
+app.use("/api/records", recordsRouter);
+app.use("/api/dashboard", dashboardRouter);
+app.use("/api/users", usersRouter);
 
 // app.post("/api/v1", authMiddleware, roleMiddleware("admin"), (req, res) => {
 //     res.send("/Register");

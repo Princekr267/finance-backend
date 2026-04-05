@@ -29,7 +29,10 @@ const validateLogin = async (req, res, next) => {
 
 const authMiddleware = (req, res, next) => {
     try {
-        const token = req.headers.authorization;
+        // const token = req.headers.authorization;
+
+        const authHeader = req.headers.authorization;
+        const token = authHeader && authHeader.split(' ')[1]; // get token after "Bearer "
 
         if(!token) {
             return res.status(401).json({message: "No token provided"});

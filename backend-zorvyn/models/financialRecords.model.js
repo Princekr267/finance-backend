@@ -1,38 +1,42 @@
+// models/financialRecords.model.js
 import mongoose from "mongoose";
 
-FinancialRecordsSchema = {
-    amount: {
-        type: Number,
+const FinancialRecordsSchema = new mongoose.Schema({
+  amount: { 
+        type: Number, 
         required: true,
         min: [0.01, "Amount must be greater than 0"]
     },
     type: {
         type: String,
-        required: true,
+        required: true, 
         enum: ["income", "expense"]
     },
     category: {
         type: String,
         required: true,
-        emum: ["food", "health", "education", "transport", "rent", "salary", "entertainment", "other"]
+        enum: ["food", "health", "education", "transport", "rent", "salary", "entertainment", "other"]
     },
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now()
+    date: { 
+        type: Date, 
+        required: true, 
+        default: Date.now 
     },
-    description: {
-        type: String,
-        default: "",
-        maxlength: [300, "Limit reached! 300 words is the limit"]
+    description: { 
+        type: String, 
+        default: "", 
+        maxlength: [300, "Limit reached"] 
     },
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true
+    createdBy: { type: mongoose.Schema.Types.ObjectId, 
+        ref: "User", 
+        required: true 
+    },
+    is_deleted: {
+        type: Boolean,
+        default: false 
     }
-}
+}, 
+{ timestamps: true }
+);
 
-const FinancialRecords = mongoose.model("FinancialRecords", FinancialRecordsSchema)
-
-module.exports.FinancialRecords;
+export const FinancialRecords = mongoose.model("FinancialRecords", FinancialRecordsSchema);

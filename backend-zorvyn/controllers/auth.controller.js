@@ -36,7 +36,14 @@ const login = async (req, res) => {
                 console.log(err);
             }
         }
-        let token = jwt.sign({email}, process.env.JWT_SECRET);
+        let token = jwt.sign({ 
+            email: user.email, 
+            role: user.role, 
+            id: user._id 
+        },
+            process.env.JWT_SECRET
+        );
+        // let token = jwt.sign({email}, process.env.JWT_SECRET);
         res.cookie("token", token);
         res.status(202).json({token});
         // res.send("Logged In");
