@@ -2,6 +2,13 @@
 
 A RESTful API for financial records management with role-based access control, built with **Node.js**, **Express**, and **MongoDB**.
 
+## Live API
+
+Base URL: https://finance-backend-5473.onrender.com
+
+Test the API using Postman or any HTTP client.
+All endpoints are documented below.
+
 ---
 
 ## Stack
