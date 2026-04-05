@@ -13,7 +13,7 @@ export const getSummary = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
+``
 export const getByCategory = async (req, res) => {
   try {
     const result = await FinancialRecords.aggregate([

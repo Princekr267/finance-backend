@@ -15,6 +15,7 @@ const PORT = process.env.PORT;
 
 const allowedOrigins = [
     'http://localhost:5173',
+    'chrome-extension://amknoiejhlmhancpahfcfcfhllgkpbld',
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
@@ -50,7 +51,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-    res.send("Working!");
+    res.send("API is Working!");
 })
 
 app.use("/api/auth", authentication);

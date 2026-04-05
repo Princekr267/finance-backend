@@ -39,7 +39,6 @@ const authMiddleware = async (req, res, next) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Check DB so deactivated users are blocked immediately (not just on next login)
         const user = await userModel.findById(decoded.id).select("role isActive");
         if (!user) {
             return res.status(401).json({ message: "User no longer exists" });

@@ -85,7 +85,7 @@ Authorization: Bearer <token>
 |---|---|---|---|
 | POST | `/register` | ❌ | Register a new user |
 | POST | `/login` | ❌ | Login and receive JWT |
-| GET | `/logout` | ❌ | Clear auth cookie |
+| POST | `/logout` | ❌ | Clear auth cookie |
 
 **Register body:**
 ```json

@@ -5,8 +5,8 @@ import {userSchema} from "../schema.js"
 
 const register = async (req, res) => {
   try {
-    const {name, email, password, role, isActive} = req.body;
-    await userModel.create({ name, email, password, role, isActive });
+    const {name, email, password} = req.body;
+    await userModel.create({ name, email, password });
     res.status(201).json({ message: "Registered successfully" });
   } catch (err) {
     if (err.code === 11000) {

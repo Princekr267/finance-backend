@@ -1,6 +1,5 @@
 import { FinancialRecords } from "../models/financialRecords.model.js";
 
-// CREATE - admin/analyst only
 export const createRecord = async (req, res) => {
   try {
     const { amount, type, category, date, description } = req.body;
@@ -17,7 +16,6 @@ export const createRecord = async (req, res) => {
   }
 };
 
-// GET ALL with filters - all roles
 export const getRecords = async (req, res) => {
   try {
     const { type, category, date } = req.query;
@@ -37,14 +35,17 @@ export const getRecords = async (req, res) => {
   }
 };
 
-// UPDATE - admin only
 export const updateRecord = async (req, res) => {
   try {
-    const record = await FinancialRecords.findOneAndUpdate(
-      { _id: req.params.id, is_deleted: false },
+    const record = await FinancialRecords.findOneAndUpdate({ 
+        _id: req.params.id, 
+        is_deleted: false 
+      },
       req.body,
-      { new: true, runValidators: true }
-    );
+      { 
+        new: true, 
+        runValidators: true 
+      });
     if (!record) return res.status(404).json({ message: "Record not found" });
     res.status(200).json(record);
   } catch (err) {

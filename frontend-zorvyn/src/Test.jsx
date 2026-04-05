@@ -50,7 +50,8 @@ export default function Test() {
     } catch(e) { show(e.response?.data?.message || 'Error'); }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await api.post('/auth/logout');
     localStorage.removeItem('token');
     setToken(null);
     setView('login');

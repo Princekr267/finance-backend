@@ -1,4 +1,3 @@
-// models/financialRecords.model.js
 import mongoose from "mongoose";
 
 const FinancialRecordsSchema = new mongoose.Schema({
