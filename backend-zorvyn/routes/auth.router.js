@@ -9,7 +9,7 @@ router.post("/register", validateRegister, register)
 
 router.post("/login", validateLogin, login)
 
-router.get("/logout", logout)
+router.post("/logout", logout)
 
 
 

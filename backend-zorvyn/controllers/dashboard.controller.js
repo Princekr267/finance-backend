@@ -2,13 +2,12 @@ import { FinancialRecords } from "../models/financialRecords.model.js";
 
 export const getSummary = async (req, res) => {
   try {
-    const records = await FinancialRecords.find({ is_deleted: false });
-    const totalIncome = records
-      .filter(r => r.type === "income")
-      .reduce((sum, r) => sum + r.amount, 0);
-    const totalExpenses = records
-      .filter(r => r.type === "expense")
-      .reduce((sum, r) => sum + r.amount, 0);
+    const result = await FinancialRecords.aggregate([
+      { $match: { is_deleted: false } },
+      { $group: { _id: "$type", total: { $sum: "$amount" } } }
+    ]);
+    const totalIncome = result.find(r => r._id === "income")?.total || 0;
+    const totalExpenses = result.find(r => r._id === "expense")?.total || 0;
     res.json({ totalIncome, totalExpenses, netBalance: totalIncome - totalExpenses });
   } catch (err) {
     res.status(500).json({ message: err.message });
