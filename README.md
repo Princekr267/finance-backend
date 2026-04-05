@@ -22,6 +22,7 @@ A full-stack finance management system with role-based access control.
 cd backend-zorvyn
 npm install
 # create .env (see backend-zorvyn/README.md for required variables)
+npm run seed  # Creates the default admin account
 npm run dev
 ```
 

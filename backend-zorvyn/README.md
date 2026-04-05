@@ -54,8 +54,19 @@ backend-zorvyn/
 ```bash
 cd backend-zorvyn
 npm install
+npm run seed  # Creates the initial admin user
 npm run dev
 ```
+
+### Seeding the Initial Admin
+
+Since public registration only creates `viewer` accounts, you must seed an initial `admin` user to manage the system.
+
+Run `npm run seed` to create this default admin account:
+- **Email**: `admin@finance.com`
+- **Password**: `admin123`
+
+*Make sure to log in and change this password or delete the user once you've created your own admin account.*
 
 ### Environment variables (`.env`)
 
