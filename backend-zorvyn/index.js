@@ -20,13 +20,11 @@ const allowedOrigins = [
 
 app.use(cors({
     origin: function (origin, callback) {
-        // Allow requests with no origin (mobile apps, curl, Postman, etc.)
         if (!origin) return callback(null, true);
 
         if (allowedOrigins.includes(origin)) {
             callback(null, origin);
         } else {
-            // Log for debugging
             console.log('CORS blocked origin:', origin);
             callback(null, origin); // Allow anyway for now
         }
@@ -60,9 +58,6 @@ app.use("/api/records", recordsRouter);
 app.use("/api/dashboard", dashboardRouter);
 app.use("/api/users", usersRouter);
 
-// app.post("/api/v1", authMiddleware, roleMiddleware("admin"), (req, res) => {
-//     res.send("/Register");
-// })
 
 app.listen(PORT || 3000, ()=>{
     console.log(`Server is running on port ${PORT || 3000}`)

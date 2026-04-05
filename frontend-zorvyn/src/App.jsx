@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Authenticate from './AuthForm/Authenticate.jsx';
-import Login from './AuthForm/Login.jsx';
+import Test from './Test.jsx';
 
 function App() {
 
@@ -8,7 +8,8 @@ function App() {
     <>
       <h1>Zorvyn</h1>   
       <p>Zorvyn is a financial management system</p>
-      <Authenticate />
+      {/* <Authenticate /> */}
+      <Test/>
     </>
   )
 }

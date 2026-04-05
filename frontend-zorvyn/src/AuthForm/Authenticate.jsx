@@ -11,15 +11,15 @@ const Authenticate = () => {
     });
     
     const handleLogin = async () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
             
             try {
                 let request = await client.post("/login", {
                     email: email,
                     password: password
                 });
-                if(request.status === 202){
+                if(request.status === 200){
                     localStorage.setItem("token", request.data.token);
                     setIsLoggedIn(true);
                     console.log("Logged in");
@@ -28,7 +28,7 @@ const Authenticate = () => {
             } catch (err) {
                 // console.log(err.response.data);
                 if (err.response) {
-                    console.log(err.response.data);
+                    console.log(err.response.data.message);
                 } else {
                     console.log("Login failed:", err);
                 }
@@ -38,12 +38,12 @@ const Authenticate = () => {
     
     const handleRegister = async () => {
 
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const role = document.getElementById('role').value;
+        const name = document.getElementById('register-name').value;
+        const email = document.getElementById('register-email').value;
+        const password = document.getElementById('register-password').value;
+        const role = document.getElementById('register-role').value;
 
-        console.log(name, email, password, role);
+        // console.log(name, email, password, role);
         
         try {
             let request = await client.post("/register", {
@@ -53,18 +53,16 @@ const Authenticate = () => {
                 role: role
             });
             console.log(request.status);
-            if(request.status === 200){
-                // localStorage.setItem("token", request.data.token);
-                // console.log("Logged In")
+            if(request.status === 201){
                 console.log("Registered");
             }
             console.log(request.status);
             
         } catch (err) {
             if (err.response) {
-                console.log(err.response.data.message);
+                console.log("Registration error:", err.response.data.message);
             } else {
-                console.log("Registeration failed:", err);
+                console.log("Registeration failed:", err.message || err);
             }
         }
 
@@ -82,33 +80,32 @@ const Authenticate = () => {
           {!isLoggedIn ? 
             <>
                 <h3>Login</h3>
-                <label htmlFor="email">Email: </label>
-                <input type="email" id='email' placeholder='Enter you email'/>
+                <label htmlFor="login-email">Email: </label>
+                <input type="email" id='login-email' placeholder='Enter you email'/>
                 <br />
-                <label htmlFor="password">Password: </label>
-                <input type="password" id='password' placeholder='Enter you password'/>
+                <label htmlFor="login-password">Password: </label>
+                <input type="password" id='login-password' placeholder='Enter you password'/>
                 <br />
                 <button onClick={handleLogin}>Login</button>
 
                 <br /><hr /><br /> 
-                </> : <>
 
                 <h3>Register</h3>
-                <label htmlFor="name">Name: </label>
-                <input type="text" id='name' placeholder='Enter you name'/>
+                <label htmlFor="register-name">Name: </label>
+                <input type="text" id='register-name' placeholder='Enter you name'/>
                 <br />
-                <label htmlFor="email">Email: </label>
-                <input type="email" id='email' placeholder='Enter you email'/>
+                <label htmlFor="register-email">Email: </label>
+                <input type="email" id='register-email' placeholder='Enter you email'/>
                 <br />
-                <label htmlFor="password">Password: </label>
-                <input type="password" id='password' placeholder='Enter you password'/>
+                <label htmlFor="register-password">Password: </label>
+                <input type="password" id='register-password' placeholder='Enter you password'/>
                 <br />
-                <label htmlFor="role">Role: </label>
-                <input type="text" id='role' placeholder='Enter you role'/>
+                <label htmlFor="register-role">Role: </label>
+                <input type="text" id='register-role' placeholder='Enter you role'/>
                 <br />
                 <button onClick={handleRegister}>Register</button>
-
-                {/* <h3>You are logged in!</h3> */}
+            </> : <>
+                <h3>You are logged in!</h3>
                 <button onClick={handleLogout}>Logout</button>
             </>
           }

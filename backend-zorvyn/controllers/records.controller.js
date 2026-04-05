@@ -31,7 +31,7 @@ export const getRecords = async (req, res) => {
       filter.date = { $gte: start, $lt: end };
     }
     const records = await FinancialRecords.find(filter).sort({ date: -1 });
-    res.json(records);
+    res.status(200).json(records);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -43,11 +43,16 @@ export const updateRecord = async (req, res) => {
     const record = await FinancialRecords.findOneAndUpdate(
       { _id: req.params.id, is_deleted: false },
       req.body,
-      { new: true }
+      { new: true, runValidators: true }
     );
     if (!record) return res.status(404).json({ message: "Record not found" });
-    res.json(record);
+    res.status(200).json(record);
   } catch (err) {
+    if (err.name === "CastError") return res.status(400).json({ message: "Invalid record ID" });
+    if (err.name === "ValidationError") {
+      const messages = Object.values(err.errors).map(e => e.message).join(", ");
+      return res.status(400).json({ message: messages });
+    }
     res.status(500).json({ message: err.message });
   }
 };
@@ -61,8 +66,9 @@ export const deleteRecord = async (req, res) => {
       { new: true }
     );
     if (!record) return res.status(404).json({ message: "Record not found" });
-    res.json({ message: "Record deleted" });
+    res.status(200).json({ message: "Record deleted" });
   } catch (err) {
+    if (err.name === "CastError") return res.status(400).json({ message: "Invalid record ID" });
     res.status(500).json({ message: err.message });
   }
 };
