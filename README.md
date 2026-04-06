@@ -1,4 +1,4 @@
-# Finance Dashboard — Zorvyn
+# Finance Dashboard
 
 A full-stack finance management system with role-based access control.
 
@@ -8,8 +8,8 @@ A full-stack finance management system with role-based access control.
 
 ```
 /
-├── backend-zorvyn/     # Express + MongoDB REST API
-└── frontend-zorvyn/    # React + Vite frontend (API tester / dashboard UI)
+├── backend-finance/     # Express + MongoDB REST API
+└── frontend-finance/    # React + Vite frontend (API tester / dashboard UI)
 ```
 
 ---
@@ -19,9 +19,9 @@ A full-stack finance management system with role-based access control.
 ### 1. Backend
 
 ```bash
-cd backend-zorvyn
+cd backend-finance
 npm install
-# create .env (see backend-zorvyn/README.md for required variables)
+# create .env (see backend-finance/README.md for required variables)
 npm run seed  # Creates the default admin account
 npm run dev
 ```
@@ -31,7 +31,7 @@ Runs on: `http://localhost:3000`
 ### 2. Frontend
 
 ```bash
-cd frontend-zorvyn
+cd frontend-finance
 npm install
 npm run dev
 ```
@@ -53,7 +53,7 @@ Runs on: `http://localhost:5173`
 
 ## Documentation
 
-- **[Backend README](./backend-zorvyn/README.md)** — full API reference, setup guide, role permissions table, status code reference
+- **[Backend README](./backend-finance/README.md)** — full API reference, setup guide, role permissions table, status code reference
 
 ---
 

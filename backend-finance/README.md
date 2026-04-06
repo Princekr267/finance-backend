@@ -1,4 +1,4 @@
-# Finance Backend — Zorvyn
+# Finance Backend
 
 A RESTful API for financial records management with role-based access control, built with **Node.js**, **Express**, and **MongoDB**.
 
@@ -27,7 +27,7 @@ All endpoints are documented below.
 ## Project Structure
 
 ```
-backend-zorvyn/
+backend-finance/
 ├── controllers/
 │   ├── auth.controller.js        # register, login, logout
 │   ├── records.controller.js     # CRUD + filtering for financial records
@@ -59,7 +59,7 @@ backend-zorvyn/
 ### Install & run
 
 ```bash
-cd backend-zorvyn
+cd backend-finance
 npm install
 npm run seed  # Creates the initial admin user
 npm run dev
