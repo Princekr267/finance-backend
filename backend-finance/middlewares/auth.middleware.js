@@ -47,7 +47,7 @@ const authMiddleware = async (req, res, next) => {
             return res.status(403).json({ message: "Account is inactive. Contact an admin." });
         }
 
-        req.user = decoded;
+        req.user = { ...decoded, role: user.role };
         next();
     } catch (error) {
         return res.status(401).json({message: "Invalid token"});

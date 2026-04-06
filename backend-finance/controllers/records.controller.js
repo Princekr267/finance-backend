@@ -64,8 +64,8 @@ export const updateRecord = async (req, res) => {
 // SOFT DELETE - admin only
 export const deleteRecord = async (req, res) => {
   try {
-    const record = await FinancialRecords.findByIdAndUpdate(
-      req.params.id,
+    const record = await FinancialRecords.findOneAndUpdate(
+      { _id: req.params.id, is_deleted: false },
       { is_deleted: true },
       { new: true }
     );

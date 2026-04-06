@@ -245,6 +245,23 @@ Categories: `food` | `health` | `education` | `transport` | `rent` | `salary` | 
 
 ---
 
+## Assumptions & Design Decisions
+
+- **Global Dashboard Data**: All dashboard data (summary, trends, category totals) is global and reflects the organization's overall financial state, rather than being scoped per-user.
+- **Strict Role Boundaries**: Analysts are tasked with data entry and can create records, but cannot update or delete them to prevent tampering. Only admins can edit or remove records.
+- **Permanent Soft Delete**: Soft delete is final from the API's perspective. Deleted records are kept as an audit trail and can only be fully recovered or removed via direct database access.
+- **Secure Registration By Default**: The Joi validation schema for registration does not allow a `role` field. Even if a user attempts to include `"role": "admin"` in the JSON payload, it is stripped out. Mongoose then safely defaults the new user to `viewer`. This is an intentional security decision to prevent privilege escalation.
+
+---
+
+## Tradeoffs
+
+- **Immediate Token Invalidation vs. Performance**: The JWT `authMiddleware` re-evaluates the user's `isActive` status and `role` from the database on every protected request.
+  - *Cost*: One extra database query per protected request, adding slight latency.
+  - *Benefit*: Admin actions (like deactivating a rogue user or changing a role) take effect immediately, without having to wait for the user's JWT to expire or manage a complex token revocation list.
+
+---
+
 ## Optional Features Implemented
 
 - ✅ JWT authentication with 7-day expiry
