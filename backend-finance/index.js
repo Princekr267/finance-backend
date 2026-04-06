@@ -27,7 +27,6 @@ app.use(cors({
             callback(null, origin);
         } else {
             console.log('CORS blocked origin:', origin);
-            callback(null, origin); // Allow anyway for now
         }
     },
     credentials: true,

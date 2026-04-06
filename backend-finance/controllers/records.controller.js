@@ -23,9 +23,12 @@ export const getRecords = async (req, res) => {
     if (type) filter.type = type;
     if (category) filter.category = category;
     if (date) {
-      const start = new Date(date);
-      const end = new Date(date);
-      end.setMonth(end.getMonth() + 1);
+      const [year, month] = date.split("-").map(Number);
+      if (!year || !month || month < 1 || month > 12) {
+        return res.status(400).json({ message: "Invalid date format. Use YYYY-MM" });
+      }
+      const start = new Date(year, month - 1, 1);
+      const end = new Date(year, month, 1);
       filter.date = { $gte: start, $lt: end };
     }
     const records = await FinancialRecords.find(filter).sort({ date: -1 });

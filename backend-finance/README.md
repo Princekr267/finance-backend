@@ -110,11 +110,10 @@ Authorization: Bearer <token>
 {
   "name": "Alice",
   "email": "alice@example.com",
-  "password": "secret123",
-  "role": "viewer"
+  "password": "secret123"
 }
 ```
-Roles: `viewer` | `analyst` | `admin`
+> All public registrations default to the `viewer` role. Use the seed script or admin panel to assign higher roles.
 
 **Login body:**
 ```json
